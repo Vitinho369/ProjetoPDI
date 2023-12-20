@@ -33,14 +33,14 @@ public class Processor {
 
 
 		int[][] im_red = ImaJ.splitChannel(im_blur, 0);
-//		imageShow.imShow(im_red, file.getPath(),"vermelho");
+//		imageShow.imShow(im_red, file.getPath(),"medianRed");
 		//Image.imWrite(im_blur, "C:/Users/vitin/Documents/TADS/PDI/ProjetoPDI/Results/blur.png");
 
 		int[][] im_green = ImaJ.splitChannel(im_blur, 2);
-//		imageShow.imShow(im_green, file.getPath(),"verde");
+//		imageShow.imShow(im_green, file.getPath(),"meidanGreen");
 
 		int[][] im_blue = ImaJ.splitChannel(im_blur, 1);
-//		imageShow.imShow(im_blue, file.getPath(),"azul");
+//		imageShow.imShow(im_blue, file.getPath(),"medianBlue");
 
 		int[][][] im_cmyk = ImaJ.rgb2cmyk(im_blur);
 		
@@ -80,10 +80,10 @@ public class Processor {
 		//Image.imWrite(imErode, "C:/Users/vitin/Documents/TADS/PDI/ProjetoPDI/Results/erodida.png");
 
 		ArrayList<Properties> sementes = ImaJ.regionProps(imErode);
-		int perimetro =0;
+		double perimetro =0;
 		double circulaty;
 		String classification = "";
-		double vermelho=0, azul=0, verde=0;
+		double medianRed=0, medianBlue=0, meidanGreen=0;
 		int qtdPixels=0;
 		for(int i = 0; i < sementes.size(); i++) {
 			perimetro=0;
@@ -92,13 +92,13 @@ public class Processor {
 				int[][][] im2 = ImaJ.imCrop(im, sementes.get(i).boundingBox[0], sementes.get(i).boundingBox[1], 
                         sementes.get(i).boundingBox[2], sementes.get(i).boundingBox[3]);
 
-				int[][] imRecorteVermelho = ImaJ.imCrop(im_red, sementes.get(i).boundingBox[0], sementes.get(i).boundingBox[1], 
+				int[][] imRecortemedianRed = ImaJ.imCrop(im_red, sementes.get(i).boundingBox[0], sementes.get(i).boundingBox[1], 
                         sementes.get(i).boundingBox[2], sementes.get(i).boundingBox[3]);
 				
-				int[][] imRecorteVerde = ImaJ.imCrop(im_green, sementes.get(i).boundingBox[0], sementes.get(i).boundingBox[1], 
+				int[][] imRecortemeidanGreen = ImaJ.imCrop(im_green, sementes.get(i).boundingBox[0], sementes.get(i).boundingBox[1], 
                         sementes.get(i).boundingBox[2], sementes.get(i).boundingBox[3]);
 				
-				int[][] imRecorteAzul = ImaJ.imCrop(im_blue, sementes.get(i).boundingBox[0], sementes.get(i).boundingBox[1], 
+				int[][] imRecortemedianBlue = ImaJ.imCrop(im_blue, sementes.get(i).boundingBox[0], sementes.get(i).boundingBox[1], 
                         sementes.get(i).boundingBox[2], sementes.get(i).boundingBox[3]);
 				
 				boolean[][] imMedian = ImaJ.imCrop(imBordas, sementes.get(i).boundingBox[0], sementes.get(i).boundingBox[1], 
@@ -111,33 +111,33 @@ public class Processor {
 								if(!sementes.get(i).image[x][y]) {
 									im2[x][y] = new int[]{0,0,0};
 								}else {
-									vermelho += imRecorteVermelho[x][y];
-									azul += imRecorteVerde[x][y];
-									verde += imRecorteAzul[x][y];
+									medianRed += imRecortemedianRed[x][y];
+									medianBlue += imRecortemeidanGreen[x][y];
+									meidanGreen += imRecortemedianBlue[x][y];
 									qtdPixels++;
 								}
 								perimetro += imMedian[x][y] ? 1 : 0;
 							}
 						}
 						
-						vermelho /=  sementes.get(i).area;
-						azul /=  sementes.get(i).area;
-						verde /=  sementes.get(i).area;
+						medianRed /=  sementes.get(i).area;
+						medianBlue /=  sementes.get(i).area;
+						meidanGreen /=  sementes.get(i).area;
 						classification = "desconhecido";
 						
 		
 						circulaty =  (4* Math.PI * sementes.get(i).area)/(perimetro*perimetro); 
-						if(vermelho > 200 && azul > 150 && verde > 185) {
+						if(medianRed > 200 && medianBlue > 150 && meidanGreen > 185) {
 							classification = "Folha de papel";
-						}else if(circulaty > 0.5 && circulaty < 1 && azul > 70 && azul < 130) {
+						}else if(circulaty > 0.5 && circulaty < 1 && medianBlue > 70 && medianBlue < 130) {
 							classification = "Saboneteira";
-						}else if(circulaty >= 1 || azul < 70) {
+						}else if(circulaty >= 1 || medianBlue < 70) {
 							classification = "Tampa de Piloto";
 						}
 						
 						ImageReader.imWrite(im2, file.getPath().split("\\.")[0] + "_" + i + classification+ ".png");
 						//ImageReader.imWrite(im2,"C:/Users/vitin/Documents/TADS/PDI/ProjetoPDI/Results/folha_" + i + ".png");
-						list.add(new Entity(sementes.get(i).area, 1,circulaty,vermelho, azul, verde, file.getPath().split("\\.")[0] + "_" + i + classification+ ".png", classification));			
+						list.add(new Entity(sementes.get(i).area, perimetro,circulaty,medianRed, medianBlue, meidanGreen, file.getPath().split("\\.")[0] + "_" + i + classification+ ".png", classification));			
 						}
 				
 			}	

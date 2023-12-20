@@ -2,24 +2,24 @@ package dominio;
 
 public class Entity {
 	private double area;
-	private double color;
+	private double perimeter;
 	private double circulaty;
-	private double vermelho;
-	private double azul;
-	private double verde;
+	private double medianRed;
+	private double medianBlue;
+	private double medianGreen;
 	private String classification;
 	private String image;
 	
 	
-	public Entity(double area, double color, double circulaty,double vermelho, double azul, double verde, String image, String classification) {
+	public Entity(double area, double perimeter, double circulaty,double medianRed, double medianBlue, double medianGreen, String image, String classification) {
 		this.area = area;
 		this.circulaty = circulaty;
-		this.vermelho = vermelho;
-		this.azul = azul;
-		this.verde = verde;
+		this.medianRed = medianRed;
+		this.medianBlue = medianBlue;
+		this.medianGreen = medianGreen;
 		this.setImage(image);
 		this.setClassification(classification);
-		this.color = color;
+		this.perimeter = perimeter;
 	}
 	
 	public double getCirculaty() {
@@ -31,28 +31,28 @@ public class Entity {
 	}
 
 
-	public double getAzul() {
-		return azul;
+	public double getMedianBlue() {
+		return medianBlue;
 	}
 
-	public void setAzul(double azul) {
-		this.azul = azul;
+	public void setMedianBlue(double medianBlue) {
+		this.medianBlue = medianBlue;
 	}
 
-	public double getVerde() {
-		return verde;
+	public double getMedianGreen() {
+		return medianGreen;
 	}
 
-	public void setVerde(double verde) {
-		this.verde = verde;
+	public void setMedianGreen(double medianGreen) {
+		this.medianGreen = medianGreen;
 	}
 
-	public double getVermelho() {
-		return vermelho;
+	public double getMedianRed() {
+		return medianRed;
 	}
 
-	public void setVermelho(double vermelho) {
-		this.vermelho = vermelho;
+	public void setmedianRed(double medianRed) {
+		this.medianRed = medianRed;
 	}
 
 	public double getArea() {
@@ -63,12 +63,12 @@ public class Entity {
 		this.area = area;
 	}
 
-	public double getColor() {
-		return color;
+	public double getPerimeter() {
+		return perimeter;
 	}
 
-	public void setColor(double color) {
-		this.color = color;
+	public void setPerimeter(double perimeter) {
+		this.perimeter = perimeter;
 	}
 
 	public String getClassification() {
