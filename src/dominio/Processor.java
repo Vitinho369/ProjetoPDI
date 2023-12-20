@@ -120,22 +120,24 @@ public class Processor {
 							}
 						}
 						
-						vermelho /= qtdPixels;
-						azul /= qtdPixels;
-						verde /= qtdPixels;
+						vermelho /=  sementes.get(i).area;
+						azul /=  sementes.get(i).area;
+						verde /=  sementes.get(i).area;
 						classification = "desconhecido";
 						
 		
 						circulaty =  (4* Math.PI * sementes.get(i).area)/(perimetro*perimetro); 
 						if(vermelho > 200 && azul > 150 && verde > 185) {
 							classification = "Folha de papel";
-						}else if(circulaty > 0.5 && circulaty < 1 && azul > 70 && azul < 100) {
+						}else if(circulaty > 0.5 && circulaty < 1 && azul > 70 && azul < 130) {
 							classification = "Saboneteira";
+						}else if(circulaty >= 1 || azul < 70) {
+							classification = "Tampa de Piloto";
 						}
 						
-						ImageReader.imWrite(im2, file.getPath().split("\\.")[0] + "_" + i + ".png");
+						ImageReader.imWrite(im2, file.getPath().split("\\.")[0] + "_" + i + classification+ ".png");
 						//ImageReader.imWrite(im2,"C:/Users/vitin/Documents/TADS/PDI/ProjetoPDI/Results/folha_" + i + ".png");
-						list.add(new Entity(sementes.get(i).area, 1,circulaty,vermelho, azul, verde, file.getPath().split("\\.")[0] + "_" + i + ".png", classification));			
+						list.add(new Entity(sementes.get(i).area, 1,circulaty,vermelho, azul, verde, file.getPath().split("\\.")[0] + "_" + i + classification+ ".png", classification));			
 						}
 				
 			}	
