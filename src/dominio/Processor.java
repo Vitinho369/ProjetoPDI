@@ -89,9 +89,6 @@ public class Processor {
 				
 				int[][] imRecortemedianBlue = ImaJ.imCrop(im_blue, objetos.get(i).boundingBox[0], objetos.get(i).boundingBox[1], 
                         objetos.get(i).boundingBox[2], objetos.get(i).boundingBox[3]);
-				
-				boolean[][] imMedian = ImaJ.imCrop(imBordas, objetos.get(i).boundingBox[0], objetos.get(i).boundingBox[1], 
-                        objetos.get(i).boundingBox[2], objetos.get(i).boundingBox[3]);
 						
 						// Aplicando máscara na imagem original
 						for(int x = 0; x < im2.length; x++) {
