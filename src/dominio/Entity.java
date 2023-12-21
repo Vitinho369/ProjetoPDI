@@ -2,8 +2,6 @@ package dominio;
 
 public class Entity {
 	private double area;
-	private double perimeter;
-	private double circulaty;
 	private double medianRed;
 	private double medianBlue;
 	private double medianGreen;
@@ -11,26 +9,15 @@ public class Entity {
 	private String image;
 	
 	
-	public Entity(double area, double perimeter, double circulaty,double medianRed, double medianBlue, double medianGreen, String image, String classification) {
+	public Entity(double area,double medianRed, double medianBlue, double medianGreen, String image, String classification) {
 		this.area = area;
-		this.circulaty = circulaty;
 		this.medianRed = medianRed;
 		this.medianBlue = medianBlue;
 		this.medianGreen = medianGreen;
 		this.setImage(image);
 		this.setClassification(classification);
-		this.perimeter = perimeter;
 	}
 	
-	public double getCirculaty() {
-		return circulaty;
-	}
-
-	public void setCirculaty(double circulaty) {
-		this.circulaty = circulaty;
-	}
-
-
 	public double getMedianBlue() {
 		return medianBlue;
 	}
@@ -61,14 +48,6 @@ public class Entity {
 
 	public void setArea(double area) {
 		this.area = area;
-	}
-
-	public double getPerimeter() {
-		return perimeter;
-	}
-
-	public void setPerimeter(double perimeter) {
-		this.perimeter = perimeter;
 	}
 
 	public String getClassification() {

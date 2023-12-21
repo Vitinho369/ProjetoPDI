@@ -77,6 +77,31 @@ public abstract class ImaJ {
 
         return image;
     }
+    
+    /**
+     * Método para passar um filtro em uma imagem.
+     */
+     
+     public static int [][] imfilter(int[][] im, int[][] filter){
+     	int [][] imageFilter = zeros(im.length+(filter.length-1), im[0].length +(filter[0].length-1));
+     	
+     	for(int i=1; i < imageFilter.length-1;i++) {
+     		for(int j=1; j < imageFilter[0].length-1;j++) {
+     			imageFilter[i][j] = im[i-1][j-1];
+     		}
+     	}
+     	
+     	for(int i=1; i < imageFilter.length-1;i++) {
+     		for(int j=1; j < imageFilter[0].length-1;j++) {
+     			im[i-1][j-1] =  ((imageFilter[i-1][j-1] * filter[0][0]) +  (imageFilter[i-1][j] * filter[0][1])
+                         + (imageFilter[i-1][j+1] * filter[0][2]) + (imageFilter[i][j-1] * filter[1][0] )
+                         + (imageFilter[i][j] * filter[1][1]) + (imageFilter[i][j+1] * filter[1][2])
+                         + (imageFilter[i+1][j-1] * filter[2][0]) + (imageFilter[i+1][j] * filter[2][1])
+                         + (imageFilter[i+1][j+1] * filter[2][2]));
+     		}
+     	}
+     	return im;
+     }
 
     /**
      * Esta função divide uma imagem de três canais em um único canal.
